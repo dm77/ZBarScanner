@@ -4,27 +4,25 @@ This is an Android library project that simplifies the usage of ZBar Android SDK
 
 1. Download this project and add it as a library project to your existing Android app.
 2. Open the AndroidManifest.xml file in your project and add these lines under the manifest element:
-
 <pre>
 &lt;uses-permission android:name="android.permission.CAMERA"/&gt;
 &lt;uses-feature android:name="android.hardware.camera" /&gt;
 </pre>
-
 3. Within the application element, add the activity declartion:
-
 <pre>
 &lt;activity android:name="com.dm.zbar.android.scanner.ZBarScannerActivity"`
             android:screenOrientation="landscape"
             android:label="@string/app_name" /&gt;
 </pre>
+4. Now from inside your Android application, you can launch the ZBarScanner from any activity using this intent:
 
-3. Now from inside your Android application, you can launch the ZBarScanner from any activity using this intent:
 ```java
 Intent intent = new Intent(this, ZBarScannerActivity.class);
 startActivityForResult(intent, ZBAR_SCANNER_REQUEST);
 ```
 
-4. To receive the results of the SCAN, add this method to your activity:
+To receive the results of the SCAN, add this method to your activity:
+
 ```java
 @Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -89,7 +87,8 @@ I have tested the scanner functionality on these devices without any issues so f
 
 ###Credits
 Almost all of the code for this library project has been taken from these two places:
-1. CameraPreview stuff from Android SDK APIDemos 
+
+1. CameraPreview app from Android SDK APIDemos 
 2. The ZBar Android SDK: http://sourceforge.net/projects/zbar/files/AndroidSDK/
 
 ###License
