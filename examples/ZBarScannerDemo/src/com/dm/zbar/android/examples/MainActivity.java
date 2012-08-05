@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 import com.dm.zbar.android.scanner.ZBarConstants;
 import com.dm.zbar.android.scanner.ZBarScannerActivity;
+import net.sourceforge.zbar.Symbol;
 
 public class MainActivity extends Activity {
 
@@ -32,7 +33,7 @@ public class MainActivity extends Activity {
     public void launchQRScanner(View v) {
         if (isCameraAvailable()) {
             Intent intent = new Intent(this, ZBarScannerActivity.class);
-            intent.putExtra(ZBarScannerActivity.SCAN_MODES, new int[]{ZBarConstants.QRCODE});
+            intent.putExtra(ZBarConstants.SCAN_MODES, new int[]{Symbol.QRCODE});
             startActivityForResult(intent, ZBAR_SCANNER_REQUEST);
         } else {
             Toast.makeText(this, "Rear Facing Camera Unavailable", Toast.LENGTH_SHORT).show();
