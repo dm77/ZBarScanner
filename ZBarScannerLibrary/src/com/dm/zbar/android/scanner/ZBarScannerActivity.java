@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.Window;
 import android.view.WindowManager;
@@ -15,11 +16,11 @@ import net.sourceforge.zbar.SymbolSet;
 
 public class ZBarScannerActivity extends Activity implements Camera.PreviewCallback, ZBarConstants {
 
-    private static final String TAG = "ZBarScannerActivity";        
-
+    private static final String TAG = "ZBarScannerActivity";
     private CameraPreview mPreview;
     private Camera mCamera;
     private ImageScanner mScanner;
+    private Handler mAutoFocusHandler;
 
     static {
         System.loadLibrary("iconv");
@@ -33,12 +34,14 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        mAutoFocusHandler = new Handler();
+
         // Create and configure the ImageScanner;
         setupScanner();
 
         // Create a RelativeLayout container that will hold a SurfaceView,
         // and set it as the content of our activity.
-        mPreview = new CameraPreview(this, this);
+        mPreview = new CameraPreview(this, this, autoFocusCB);
         setContentView(mPreview);
     }
 
@@ -93,7 +96,7 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
             mCamera.stopPreview();
 
             SymbolSet syms = mScanner.getResults();
-            for (Symbol sym : syms) {                
+            for (Symbol sym : syms) {
                 String symData = sym.getData();
                 if (!TextUtils.isEmpty(symData)) {
                     Intent dataIntent = new Intent();
@@ -106,4 +109,18 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
             }
         }
     }
+    private Runnable doAutoFocus = new Runnable() {
+        public void run() {
+            if(mCamera != null) {
+                mCamera.autoFocus(autoFocusCB);
+            }
+        }
+    };
+    
+    // Mimic continuous auto-focusing
+    Camera.AutoFocusCallback autoFocusCB = new Camera.AutoFocusCallback() {
+        public void onAutoFocus(boolean success, Camera camera) {
+            mAutoFocusHandler.postDelayed(doAutoFocus, 1000);
+        }
+    };
 }
