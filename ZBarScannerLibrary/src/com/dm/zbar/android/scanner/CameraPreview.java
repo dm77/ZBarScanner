@@ -28,7 +28,7 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
         super(context);
 
         mPreviewCallback = previewCallback;
-        mAutoFocusCallback = autoFocusCb;        
+        mAutoFocusCallback = autoFocusCb;
         mSurfaceView = new SurfaceView(context);
         addView(mSurfaceView);
 
@@ -104,6 +104,7 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
     public void surfaceDestroyed(SurfaceHolder holder) {
         // Surface will be destroyed when we return, so stop the preview.
         if (mCamera != null) {
+            mCamera.cancelAutoFocus();
             mCamera.stopPreview();
         }
     }

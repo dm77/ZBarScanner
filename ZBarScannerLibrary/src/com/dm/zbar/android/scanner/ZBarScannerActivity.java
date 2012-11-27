@@ -76,7 +76,9 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
         // important to release it when the activity is paused.
         if (mCamera != null) {
             mPreview.setCamera(null);
+            mCamera.cancelAutoFocus();
             mCamera.setPreviewCallback(null);
+            mCamera.stopPreview();
             mCamera.release();
             mCamera = null;
         }
@@ -92,6 +94,7 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
         int result = mScanner.scanImage(barcode);
 
         if (result != 0) {
+            mCamera.cancelAutoFocus();
             mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
 
@@ -116,7 +119,7 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
             }
         }
     };
-    
+
     // Mimic continuous auto-focusing
     Camera.AutoFocusCallback autoFocusCB = new Camera.AutoFocusCallback() {
         public void onAutoFocus(boolean success, Camera camera) {
