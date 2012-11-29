@@ -21,8 +21,8 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
     private Camera mCamera;
     private ImageScanner mScanner;
     private Handler mAutoFocusHandler;
-    private boolean complete;
-    
+    private boolean mPreviewing = true;
+
     static {
         System.loadLibrary("iconv");
     }
@@ -66,6 +66,7 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
 
         // Open the default i.e. the first rear facing camera.
         mCamera = Camera.open();
+        mPreviewing = true;
         mPreview.setCamera(mCamera);
     }
 
@@ -81,6 +82,7 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
             mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
             mCamera.release();
+            mPreviewing = false;
             mCamera = null;
         }
     }
@@ -98,7 +100,7 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
             mCamera.cancelAutoFocus();
             mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
-            complete = true;
+            mPreviewing = false;
             SymbolSet syms = mScanner.getResults();
             for (Symbol sym : syms) {
                 String symData = sym.getData();
@@ -115,7 +117,7 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
     }
     private Runnable doAutoFocus = new Runnable() {
         public void run() {
-            if(mCamera != null && !complete) {
+            if(mCamera != null && mPreviewing) {
                 mCamera.autoFocus(autoFocusCB);
             }
         }
