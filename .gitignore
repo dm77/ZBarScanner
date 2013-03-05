@@ -37,3 +37,7 @@ nbandroid
 
 # MacOSX files
 .DS_Store
+
+# Maven 
+target
+
