@@ -2,6 +2,7 @@ package com.dm.zbar.android.scanner;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,12 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(!isCameraAvailable()) {
+            // Cancel request if there is no rear-facing camera.
+            cancelRequest();
+            return;
+        }
 
         // Hide the window title.
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -66,6 +73,11 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
 
         // Open the default i.e. the first rear facing camera.
         mCamera = Camera.open();
+        if(mCamera == null) {
+            // Cancel request if mCamera is null.
+            cancelRequest();
+            return;
+        }
         mPreviewing = true;
         mPreview.setCamera(mCamera);
     }
@@ -85,6 +97,16 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
             mPreviewing = false;
             mCamera = null;
         }
+    }
+
+    public boolean isCameraAvailable() {
+        PackageManager pm = getPackageManager();
+        return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA);
+    }
+
+    public void cancelRequest() {
+        setResult(Activity.RESULT_CANCELED);
+        finish();
     }
 
     public void onPreviewFrame(byte[] data, Camera camera) {
