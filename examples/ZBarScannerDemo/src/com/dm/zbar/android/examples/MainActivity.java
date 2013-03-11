@@ -52,6 +52,8 @@ public class MainActivity extends Activity {
             case ZBAR_QR_SCANNER_REQUEST:
                 if (resultCode == RESULT_OK) {
                     Toast.makeText(this, "Scan Result = " + data.getStringExtra(ZBarConstants.SCAN_RESULT), Toast.LENGTH_SHORT).show();
+                } else if(resultCode == RESULT_CANCELED) {
+                    Toast.makeText(this, "Camera unavailable", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
