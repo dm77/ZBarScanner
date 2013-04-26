@@ -72,8 +72,8 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
             int previewWidth = width;
             int previewHeight = height;
             if (mPreviewSize != null) {
-                previewWidth = mPreviewSize.width;
-                previewHeight = mPreviewSize.height;
+                previewWidth = mPreviewSize.height;
+                previewHeight = mPreviewSize.width;
             }
 
             // Center the child SurfaceView within the parent.
@@ -157,6 +157,7 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
 
         mCamera.setParameters(parameters);
         mCamera.setPreviewCallback(mPreviewCallback);
+        mCamera.setDisplayOrientation(90);
         mCamera.startPreview();
         mCamera.autoFocus(mAutoFocusCallback);
     }

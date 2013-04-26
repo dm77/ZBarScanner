@@ -10,7 +10,7 @@
 
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
         <activity android:name="ZBarScannerActivity"
-                  android:screenOrientation="landscape"
+                  android:screenOrientation="portrait"
                   android:label="@string/app_name" />
     </application>
 </manifest>
