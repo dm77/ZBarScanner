@@ -78,8 +78,11 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
             cancelRequest();
             return;
         }
-        mPreviewing = true;
+
         mPreview.setCamera(mCamera);
+        mPreview.showSurfaceView();
+
+        mPreviewing = true;
     }
 
     @Override
@@ -94,6 +97,12 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
             mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
             mCamera.release();
+
+            // According to Jason Kuang on http://stackoverflow.com/questions/6519120/how-to-recover-camera-preview-from-sleep,
+            // there might be surface recreation problems when the device goes to sleep. So lets just hide it and
+            // recreate on resume
+            mPreview.hideSurfaceView();
+
             mPreviewing = false;
             mCamera = null;
         }
@@ -105,7 +114,9 @@ public class ZBarScannerActivity extends Activity implements Camera.PreviewCallb
     }
 
     public void cancelRequest() {
-        setResult(Activity.RESULT_CANCELED);
+        Intent dataIntent = new Intent();
+        dataIntent.putExtra(ERROR_INFO, "Camera unavailable");
+        setResult(Activity.RESULT_CANCELED, dataIntent);
         finish();
     }
 

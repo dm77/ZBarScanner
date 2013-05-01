@@ -89,6 +89,14 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
         }
     }
 
+    public void hideSurfaceView() {
+        mSurfaceView.setVisibility(View.INVISIBLE);
+    }
+
+    public void showSurfaceView() {
+        mSurfaceView.setVisibility(View.VISIBLE);
+    }
+
     public void surfaceCreated(SurfaceHolder holder) {
         // The Surface has been created, acquire the camera and tell it where
         // to draw.

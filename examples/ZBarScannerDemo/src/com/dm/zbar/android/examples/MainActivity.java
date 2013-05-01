@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 import com.dm.zbar.android.scanner.ZBarConstants;
@@ -52,8 +53,11 @@ public class MainActivity extends Activity {
             case ZBAR_QR_SCANNER_REQUEST:
                 if (resultCode == RESULT_OK) {
                     Toast.makeText(this, "Scan Result = " + data.getStringExtra(ZBarConstants.SCAN_RESULT), Toast.LENGTH_SHORT).show();
-                } else if(resultCode == RESULT_CANCELED) {
-                    Toast.makeText(this, "Camera unavailable", Toast.LENGTH_SHORT).show();
+                } else if(resultCode == RESULT_CANCELED && data != null) {
+                    String error = data.getStringExtra(ZBarConstants.ERROR_INFO);
+                    if(!TextUtils.isEmpty(error)) {
+                        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
         }
