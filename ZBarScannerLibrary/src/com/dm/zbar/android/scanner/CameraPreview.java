@@ -149,16 +149,18 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
           return;
         }
 
-        // Now that the size is known, set up the camera parameters and begin
-        // the preview.
-        Camera.Parameters parameters = mCamera.getParameters();
-        parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
-        requestLayout();
+        if (mCamera != null) {
+            // Now that the size is known, set up the camera parameters and begin
+            // the preview.
+            Camera.Parameters parameters = mCamera.getParameters();
+            parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
+            requestLayout();
 
-        mCamera.setParameters(parameters);
-        mCamera.setPreviewCallback(mPreviewCallback);
-        mCamera.startPreview();
-        mCamera.autoFocus(mAutoFocusCallback);
+            mCamera.setParameters(parameters);
+            mCamera.setPreviewCallback(mPreviewCallback);
+            mCamera.startPreview();
+            mCamera.autoFocus(mAutoFocusCallback);
+        }
     }
 
 }
