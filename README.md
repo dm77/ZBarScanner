@@ -8,9 +8,9 @@ This is an Android library project that simplifies the usage of ZBar Android SDK
 &lt;uses-permission android:name="android.permission.CAMERA"/&gt;
 &lt;uses-feature android:name="android.hardware.camera" /&gt;
 </pre>
-3. Within the application element, add the activity declartion:
+3. Within the application element, add the activity declaration:
 <pre>
-&lt;activity android:name="com.dm.zbar.android.scanner.ZBarScannerActivity"`
+&lt;activity android:name="com.dm.zbar.android.scanner.ZBarScannerActivity"
             android:screenOrientation="landscape"
             android:label="@string/app_name" /&gt;
 </pre>
