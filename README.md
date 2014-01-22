@@ -32,7 +32,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data)
         // Scan result is available by making a call to data.getStringExtra(ZBarConstants.SCAN_RESULT)
         // Type of the scan result is available by making a call to data.getStringExtra(ZBarConstants.SCAN_RESULT_TYPE)
         Toast.makeText(this, "Scan Result = " + data.getStringExtra(ZBarConstants.SCAN_RESULT), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "Scan Result Type = " + data.getStringExtra(ZBarConstants.SCAN_RESULT_TYPE), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Scan Result Type = " + data.getIntExtra(ZBarConstants.SCAN_RESULT_TYPE, 0), Toast.LENGTH_SHORT).show();
         // The value of type indicates one of the symbols listed in Advanced Options below.
     } else if(resultCode == RESULT_CANCELED) {
         Toast.makeText(this, "Camera unavailable", Toast.LENGTH_SHORT).show();
