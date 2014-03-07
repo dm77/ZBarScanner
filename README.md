@@ -1,3 +1,10 @@
+ATTENTION!
+==========
+
+This project will no longer be maintained. I am going to spend my energy a better version of this project here: https://github.com/dm77/barcodescanner
+
+--------------------------------------------------------------------------------------
+
 This is an Android library project that simplifies the usage of ZBar Android SDK (http://sourceforge.net/projects/zbar/files/AndroidSDK/) for scanning bar codes from within your Android application.
 
 ### How to use?
@@ -96,6 +103,9 @@ Almost all of the code for this library project has been taken from these two pl
 ###License
 MIT
 
+--------------------------------------------------------------------------------------
 
+ATTENTION!
+==========
 
-
+This project will no longer be maintained. I am going to spend my energy a better version of this project here: https://github.com/dm77/barcodescanner
