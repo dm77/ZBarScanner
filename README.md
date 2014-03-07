@@ -1,7 +1,7 @@
 ATTENTION!
 ==========
 
-This project will no longer be maintained. Moving forward, I am going to spend my time development on this project here: https://github.com/dm77/barcodescanner
+This project will no longer be maintained. Moving forward, I am going to spend my time on development of this project here: https://github.com/dm77/barcodescanner
 
 --------------------------------------------------------------------------------------
 
@@ -108,4 +108,4 @@ MIT
 ATTENTION!
 ==========
 
-This project will no longer be maintained. Moving forward, I am going to spend my time development on this project here: https://github.com/dm77/barcodescanner
+This project will no longer be maintained. Moving forward, I am going to spend my time on development of this project here: https://github.com/dm77/barcodescanner
